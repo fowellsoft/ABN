@@ -23,22 +23,22 @@
             /**
              * Función que genera aleatoriamente operaciones
              */
-            let getOperationValue = ((minValue, maxValue, numValues, maxTotal) => 
+            let getOperationValue = ((maxValueList, maxTotal) => 
             {
                 let returnObj = null;
 
                 // Calcula los valores y operadores
-                if(numValues >= 2)
+                if(maxValueList && maxValueList.length >= 2)
                 {
                     returnObj = {};
                     returnObj.values = [];
-                    for(let i=0; i<numValues; i++)
+                    for(let i=0; i<maxValueList.length; i++)
                     {
-                        returnObj.values.push(randomIntFromInterval(minValue, maxValue));
+                        returnObj.values.push(randomIntFromInterval(1, maxValueList[i]));
                     }
                      
                     returnObj.operators = [];
-                    for(let i=0; i<numValues-1; i++)
+                    for(let i=0; i<maxValueList.length-1; i++)
                     {
                         returnObj.operators.push(randomIntFromInterval(0, 1)? "+" : "-");
                     }
@@ -121,7 +121,7 @@
 
                         if(resultFinal && 
                         resultFinal.length == 1 &&
-                        resultFinal[0] == operationValues.total)
+                        resultFinal[0] == $scope.operationValues.total)
                         {
                             isOK = true;
                             finalMessage = "Resultado correcto!!!";
@@ -152,27 +152,30 @@
             for(let i= 0; i < $scope.numLines; i++)
             {   $scope.result.line[i] = []; }
 
-            let minValue = 1;
-            let maxValue = 400;
-            let maxTotal = 999
+            let maxValueList = [99, 99];
+            let maxTotal = 999;
 
-            let operationValues = null;
+            $scope.operationValues = null;
 
             do
             {
-                operationValues = getOperationValue(minValue, maxValue, 3, maxTotal);
+                $scope.operationValues = getOperationValue(maxValueList, maxTotal);
 
             }
-            while (!validaOperationValues(operationValues, maxTotal));
+            while (!validaOperationValues($scope.operationValues, maxTotal));
             
-
-
-            $scope.valor1 = operationValues.values[0];
-            $scope.valor2 = operationValues.values[1];
-            $scope.valor3 = operationValues.values[2];
-
-            $scope.operador1 = operationValues.operators[0];
-            $scope.operador2 = operationValues.operators[1];
+            $scope.operationToPrint = [];
+            if($scope.operationValues && $scope.operationValues.values.length > 0)
+            {
+                for(let i=0; i < $scope.operationValues.values.length; i++)
+                {
+                    $scope.operationToPrint.push($scope.operationValues.values[i]);
+                    if(i < $scope.operationValues.values.length-1)
+                    {
+                        $scope.operationToPrint.push($scope.operationValues.operators[i]);
+                    }
+                }
+            }
         });
 
     </script>
@@ -209,14 +212,10 @@
         <div class="row text-center">
 
             <div class="col-3 border-end border-primary"></div>
-            <div class="col border-start-0 border-bottom-0 border border-primary fs-3 rounded-top rounded-2">
+            <div class="col border-start-0 border-bottom-0 border border-primary fs-3">
                 <div class="container">
                     <div class="row">
-                        <div class="col border-0 ">{{valor1}}</div>
-                        <div class="col border-0">{{operador1}}</div>
-                        <div class="col border-0">{{valor2}}</div>
-                        <div class="col border-0">{{operador2}}</div>
-                        <div class="col border-0">{{valor3}}</div>
+                        <div class="col border-0" ng-repeat="v in operationToPrint track by $index">{{v}}</div>
                     </div>
                 </div>
             </div>
@@ -227,16 +226,9 @@
             <div class="col-3 border border-primary" ng-class="{'border-top-0':  $index != 0 }">
                 <input type="number" class="form-control form-control-lg border-0 text-center" id="operacion1" data-bind="value:replyNumber">
             </div>
-            <div class="col-3 border border-start-0 border-start-0 border-primary" ng-class="{'border-top-0':  $index != 0 }">
-                <input type="number" class="form-control form-control-lg border-0 text-center" id="operacion1" ng-model="result.line[$index][0]" data-bind="value:replyNumber">
-            </div>
-            <div class="col-3 border border-start-0 border-primary" ng-class="{'border-top-0':  $index != 0 }">
-                <input type="number" class="form-control form-control-lg border-0 text-center" id="operacion1" ng-model="result.line[$index][1]" data-bind="value:replyNumber">
-            </div>
-            <div class="col-3 border border-start-0 border-primary" ng-class="{'border-top-0':  $index != 0 }">
-                <input type="number" class="form-control form-control-lg border-0 text-center" id="operacion1" ng-model="result.line[$index][2]" data-bind="value:replyNumber">
-            </div>
-            
+            <div class="col border border-start-0 border-start-0 border-primary" ng-class="{'border-top-0':  $parent.$index != 0 }" ng-repeat="o in [].constructor(operationValues.values.length) track by $index">
+                <input type="number" class="form-control form-control-lg border-0 text-center" id="operacion1" ng-model="result.line[$parent.$index][$index]" data-bind="value:replyNumber">
+            </div>          
         </div>
 
 
