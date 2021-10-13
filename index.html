@@ -145,15 +145,50 @@
                                               finalMessage: finalMessage };
             });
 
+            $scope.i = 0;
+            $scope.j = 0;
+            $scope.insertValue = ((value) =>
+            {
+                let textAux = $scope.result.line[$scope.i][$scope.j];
+                if(value == "B")
+                {
+                    if(textAux && textAux.length > 0)
+                    {
+                        textAux = textAux.substring(0, textAux.length-1);
+                        $scope.result.line[$scope.i][$scope.j] = textAux;
+                    }
+                }
+                else
+                    $scope.result.line[$scope.i][$scope.j] += value;
+            });
+
+            $scope.selectField = ((i, j) =>
+            {
+                $scope.i = i;
+                $scope.j = j;
+            });
+
+            $scope.isSelected = ((i, j) =>
+            {
+                console.log("entra");
+                return ($scope.i == i && $scope.j == j);
+            });
             
-            $scope.result = { line: []};
-            $scope.numLines = 5;
-
-            for(let i= 0; i < $scope.numLines; i++)
-            {   $scope.result.line[i] = []; }
-
-            let maxValueList = [500, 300, 500];
+            // Configuración de variables
+            let maxValueList = [99, 99, 99];
             let maxTotal = 999;
+            $scope.numLines = 5;
+            // ==============================
+
+            $scope.result = { line: []};
+            
+            for(let i= 0; i < $scope.numLines; i++)
+            {   $scope.result.line[i] = []; 
+                for(let j=0; j < maxValueList.length; j++)
+                    $scope.result.line[i].push("");
+            }
+
+            
 
             $scope.operationValues = null;
 
@@ -184,23 +219,19 @@
 
     <style>
 
-        textarea:hover, 
-        input:hover, 
-        textarea:active, 
-        input:active, 
-        textarea:focus, 
-        input:focus,
-        button:focus,
-        button:active,
-        button:hover,
-        label:focus,
-        .btn:active,
-        .btn.active
-        {
-            outline:0px !important;
-            -webkit-appearance:none;
-            box-shadow: none !important;
+        div.operandoAux {
+            background-color: #cfcfcf !important;
         }
+
+        div.botonera {
+            background-color: #cfcfcf;
+        }
+        div.botonera:active {
+            background-color: blue;
+            color: white;
+        }
+
+
 
     </style>
 
@@ -209,28 +240,58 @@
   <body>
     <div class="container p-5" ng-app="rejillaApp" ng-controller="rejillaCtrl">
         
-        <div class="row text-center">
-
-            <div class="col-3 border-end border-primary"></div>
-            <div class="col border-start-0 border-bottom-0 border border-primary fs-3">
+        <div class="row align-items-center">
+            <div class="col-4">
                 <div class="container">
+
+                    <div class="row text-center" >
+                        <div class="col-4 border fs-3 botonera" ng-click="insertValue('1')">1</div>
+                        <div class="col-4 border fs-3 botonera" ng-click="insertValue('2')">2</div>
+                        <div class="col-4 border fs-3 botonera" ng-click="insertValue('3')">3</div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-4 border fs-3 botonera" ng-click="insertValue('4')">4</div>
+                        <div class="col-4 border fs-3 botonera" ng-click="insertValue('5')">5</div>
+                        <div class="col-4 border fs-3 botonera" ng-click="insertValue('6')">6</div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-4 border fs-3 botonera" ng-click="insertValue('7')">7</div>
+                        <div class="col-4 border fs-3 botonera" ng-click="insertValue('8')">8</div>
+                        <div class="col-4 border fs-3 botonera" ng-click="insertValue('9')">9</div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-4 border fs-3 botonera" ng-click="insertValue('0')">0</div>
+                        <div class="col-8 border fs-3 botonera" ng-click="insertValue('B')">Borrar</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="container">
+
                     <div class="row">
-                        <div class="col border-0" ng-repeat="v in operationToPrint track by $index">{{v}}</div>
+
+                        <div class="col-3 border-end border-primary"></div>
+                        <div class="col border-start-0 border-bottom-0 border border-primary fs-3">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col border-0 text-center" ng-repeat="v in operationToPrint track by $index">{{v}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row text-center" ng-repeat="line in [].constructor(numLines) track by $index">
+
+                        <div class="col-3 border border-primary" ng-class="{'border-top-0':  $index != 0 }">
+                            <input type="text" class="form-control form-control-lg border-0 text-center">
+                        </div>
+                        <div class="col border border-start-0 border-start-0 border-primary fs-4 d-flex justify-content-center align-items-center" ng-class="{'border-top-0':  $parent.$index != 0, 'operandoAux': isSelected($parent.$index, $index) }" ng-repeat="o in [].constructor(operationValues.values.length) track by $index" ng-click="selectField($parent.$index, $index)" tabindex="1">
+                           {{result.line[$parent.$index][$index]}}
+                        </div>          
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="row text-center" ng-repeat="line in [].constructor(numLines) track by $index">
-
-            <div class="col-3 border border-primary" ng-class="{'border-top-0':  $index != 0 }">
-                <input type="number" class="form-control form-control-lg border-0 text-center" id="operacion1" data-bind="value:replyNumber">
-            </div>
-            <div class="col border border-start-0 border-start-0 border-primary" ng-class="{'border-top-0':  $parent.$index != 0 }" ng-repeat="o in [].constructor(operationValues.values.length) track by $index">
-                <input type="number" class="form-control form-control-lg border-0 text-center" id="operacion1" ng-model="result.line[$parent.$index][$index]" data-bind="value:replyNumber">
-            </div>          
-        </div>
-
 
         <div class="row text-center pt-2">
 
