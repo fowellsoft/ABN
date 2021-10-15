@@ -43,6 +43,14 @@
                         <div class="col-4 border fs-3 botonera" ng-click="insertValue('0')">0</div>
                         <div class="col-8 border fs-3 botonera" ng-click="insertValue('B')">Borrar</div>
                     </div>
+                    <div class="row text-center pt-2">
+
+                        <p class="text-white" ng-class="(resultadoOperaciones.someoneWithError)?'bg-danger' : 'bg-success'">{{resultadoOperaciones.finalMessage}} </p>
+            
+                    </div>
+                    <div class="row text-center pt-1">
+                        <button type="button" class="btn btn-primary" ng-click="validaResultados()">Comprobar</button>
+                    </div>
                 </div>
             </div>
 
@@ -54,8 +62,8 @@
                         </div>
                     </div>
                     <div class="row text-center" ng-repeat="line in [].constructor(matrizAmigo.length) track by $index">
-                        <div class="col-6 border border-top-0 border-3 border-success fs-4 valueAux" ng-class="{'valueAuxSelect': isSelected($index, 0) }" ng-click="selectField($index, 0)" tabindex="1">{{matrizAmigo[$index][0].valor}}</div>
-                        <div class="col-6 border border-top-0 border-start-0 border-3 border-success fs-4 valueAux" ng-class="{'valueAuxSelect': isSelected($index, 1) }" ng-click="selectField($index, 1)" tabindex="1">{{matrizAmigo[$index][1].valor}}</div>
+                        <div class="col-6 border border-top-0 border-3 border-success fs-4 valueAux" ng-class="{'valueAuxSelect': isSelected($index, 0) }" ng-click="selectField($index, 0)" tabindex="1">{{matrizAmigo[$index][0].sumando}}</div>
+                        <div class="col-6 border border-top-0 border-start-0 border-3 border-success fs-4 valueAux" ng-class="{'valueAuxSelect': isSelected($index, 1) }" ng-click="selectField($index, 1)" tabindex="1">{{matrizAmigo[$index][1].sumando}}</div>
                     </div>
                 </div>
             </div>

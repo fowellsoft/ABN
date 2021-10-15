@@ -14,3 +14,10 @@ div.botonera:active {
   background-color: blue;
   color: white;
 }
+
+.triangle {
+  width: 200px;
+  height: 200px;
+  transform: rotate(0deg);
+  background: linear-gradient(to bottom right, #fff 0%, #fff 50%, #f00202 50%, #f00202 100%);
+}
