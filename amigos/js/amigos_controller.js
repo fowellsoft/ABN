@@ -19,6 +19,10 @@ app.controller('amigosCtrl', function($scope, $window)
         }
         else
             $scope.matrizAmigo[$scope.i][$scope.j].sumando += value;
+        
+        // Resetea el error al cambiar algún dato
+        if($scope.matrizAmigo[$scope.i][$scope.j].withError)
+            $scope.matrizAmigo[$scope.i][$scope.j].withError = false;
     });
 
     $scope.selectField = ((i, j) =>
@@ -33,9 +37,23 @@ app.controller('amigosCtrl', function($scope, $window)
         }
     });
 
+    $scope.isSelectedWithError = ((i, j) =>
+    {
+        return (($scope.i == i && $scope.j == j) && 
+                $scope.hasError(i, j));
+    });
+
     $scope.isSelected = ((i, j) =>
     {
-        return ($scope.i == i && $scope.j == j);
+        return (($scope.i == i && $scope.j == j) &&
+                !$scope.hasError(i, j));
+    });
+
+    $scope.hasError = ((i, j) => {
+        return($scope.matrizAmigo && i < $scope.matrizAmigo.length &&
+               $scope.matrizAmigo[i] && j < $scope.matrizAmigo[i].length &&
+               $scope.matrizAmigo[i][j].editable &&
+               $scope.matrizAmigo[i][j].withError)
     });
 
     $scope.validaResultados = (() => {
@@ -76,11 +94,11 @@ app.controller('amigosCtrl', function($scope, $window)
             }
 
             
-            if(showError)
+            // Filtra el editable
+            for(j=0; j < sumandosList.length; j++)
             {
-                // Filtra el editable
-                let sumandoEditable = sumandosList.filter(e => (e && e.editable));
-                sumandoEditable.withError = true;
+                if(sumandosList[j].editable)
+                    sumandosList[j].withError = showError;
             }
         }
 
@@ -100,7 +118,7 @@ app.controller('amigosCtrl', function($scope, $window)
 
     // Podrán ser la valores finales como (10, 100, 1000) o números aleatorios dentro 
     $scope.numAmigo = 1000;
-    let numLastre = 10;
+    let numLastre = 1;
     if((numLastre != 1 && $scope.numAmigo%10 != 0 && numLastre%10 != 0) ||
        (numLastre >= $scope.numAmigo))
         numLastre = 1;

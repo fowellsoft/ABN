@@ -62,8 +62,8 @@
                         </div>
                     </div>
                     <div class="row text-center" ng-repeat="line in [].constructor(matrizAmigo.length) track by $index">
-                        <div class="col-6 border border-top-0 border-3 border-success fs-4 valueAux" ng-class="{'valueAuxSelect': isSelected($index, 0) }" ng-click="selectField($index, 0)" tabindex="1">{{matrizAmigo[$index][0].sumando}}</div>
-                        <div class="col-6 border border-top-0 border-start-0 border-3 border-success fs-4 valueAux" ng-class="{'valueAuxSelect': isSelected($index, 1) }" ng-click="selectField($index, 1)" tabindex="1">{{matrizAmigo[$index][1].sumando}}</div>
+                        <div class="col-6 border border-top-0 border-3 border-success fs-4 valueAux" ng-class="{'valueAuxSelect': isSelected($index, 0), 'valueAuxSelectError': isSelectedWithError($index, 0), 'valueAuxError': hasError($index, 0) }" ng-click="selectField($index, 0)" tabindex="1">{{matrizAmigo[$index][0].sumando}}</div>
+                        <div class="col-6 border border-top-0 border-start-0 border-3 border-success fs-4 valueAux" ng-class="{'valueAuxSelect': isSelected($index, 1), 'valueAuxError': hasError($index, 1), 'valueAuxSelectError': isSelectedWithError($index, 1) }" ng-click="selectField($index, 1)" tabindex="1">{{matrizAmigo[$index][1].sumando}}</div>
                     </div>
                 </div>
             </div>

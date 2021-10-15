@@ -1,10 +1,22 @@
 
 div.valueAux {
   height: 45px;
+  color: black;
+}
+
+div.valueAuxError {
+  background-color: #dd0000 !important;
+  color: white;
+}
+
+div.valueAuxSelectError {
+  background-color: #a50a0a !important;
+  color: white;
 }
 
 div.valueAuxSelect {
   background-color: #cfcfcf !important;
+  color: black;
 }
 
 div.botonera {
@@ -13,11 +25,4 @@ div.botonera {
 div.botonera:active {
   background-color: blue;
   color: white;
-}
-
-.triangle {
-  width: 200px;
-  height: 200px;
-  transform: rotate(0deg);
-  background: linear-gradient(to bottom right, #fff 0%, #fff 50%, #f00202 50%, #f00202 100%);
 }
