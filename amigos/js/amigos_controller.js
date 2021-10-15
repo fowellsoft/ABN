@@ -2,7 +2,7 @@ var app = angular.module('amigosApp', []);
 app.controller('amigosCtrl', function($scope, $window) 
 {
     $scope.windowWidth = $window.innerWidth;
-    $scope.minLgWith = 800;
+    $scope.minLgWith = 700;
 
     $scope.i = 0;
     $scope.j = 0;
@@ -118,7 +118,7 @@ app.controller('amigosCtrl', function($scope, $window)
 
     // Podrán ser la valores finales como (10, 100, 1000) o números aleatorios dentro 
     $scope.numAmigo = 1000;
-    let numLastre = 1;
+    let numLastre = 10;
     if((numLastre != 1 && $scope.numAmigo%10 != 0 && numLastre%10 != 0) ||
        (numLastre >= $scope.numAmigo))
         numLastre = 1;

@@ -68,6 +68,51 @@
                 </div>
             </div>
         </div>
+
+
+        <div class="row align-items-center" ng-if="windowWidth <= minLgWith">
+            <div class="container">
+                <div class="row">
+                    <div class="col border border-3 border-success d-flex justify-content-center align-items-center rounded-top">
+                        <div class="rounded-circle bg-primary bg-gradient text-white m-3 fs-2 d-flex justify-content-center align-items-center" style="height: 75px; width: 75px" >{{numAmigo}}</div>
+                    </div>
+                </div>
+                <div class="row text-center" ng-repeat="line in [].constructor(matrizAmigo.length) track by $index">
+                    <div class="col-6 border border-top-0 border-3 border-success fs-4 valueAux" ng-class="{'valueAuxSelect': isSelected($index, 0), 'valueAuxSelectError': isSelectedWithError($index, 0), 'valueAuxError': hasError($index, 0) }" ng-click="selectField($index, 0)" tabindex="1">{{matrizAmigo[$index][0].sumando}}</div>
+                    <div class="col-6 border border-top-0 border-start-0 border-3 border-success fs-4 valueAux" ng-class="{'valueAuxSelect': isSelected($index, 1), 'valueAuxError': hasError($index, 1), 'valueAuxSelectError': isSelectedWithError($index, 1) }" ng-click="selectField($index, 1)" tabindex="1">{{matrizAmigo[$index][1].sumando}}</div>
+                </div>
+
+                <div class="row text-center mt-3" >
+                    <div class="col-4 border fs-3 botonera" ng-click="insertValue('1')">1</div>
+                    <div class="col-4 border fs-3 botonera" ng-click="insertValue('2')">2</div>
+                    <div class="col-4 border fs-3 botonera" ng-click="insertValue('3')">3</div>
+                </div>
+                <div class="row text-center">
+                    <div class="col-4 border fs-3 botonera" ng-click="insertValue('4')">4</div>
+                    <div class="col-4 border fs-3 botonera" ng-click="insertValue('5')">5</div>
+                    <div class="col-4 border fs-3 botonera" ng-click="insertValue('6')">6</div>
+                </div>
+                <div class="row text-center">
+                    <div class="col-4 border fs-3 botonera" ng-click="insertValue('7')">7</div>
+                    <div class="col-4 border fs-3 botonera" ng-click="insertValue('8')">8</div>
+                    <div class="col-4 border fs-3 botonera" ng-click="insertValue('9')">9</div>
+                </div>
+                <div class="row text-center">
+                    <div class="col-4 border fs-3 botonera" ng-click="insertValue('0')">0</div>
+                    <div class="col-8 border fs-3 botonera" ng-click="insertValue('B')">Borrar</div>
+                </div>
+                <div class="row text-center pt-2">
+
+                    <p class="text-white" ng-class="(resultadoOperaciones.someoneWithError)?'bg-danger' : 'bg-success'">{{resultadoOperaciones.finalMessage}} </p>
+        
+                </div>
+                <div class="row text-center pt-1">
+                    <button type="button" class="btn btn-primary" ng-click="validaResultados()">Comprobar</button>
+                </div>
+
+            </div>
+        </div>
+
     </div>
 </body>
 </html>
