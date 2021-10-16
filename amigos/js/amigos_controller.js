@@ -117,8 +117,8 @@ app.controller('amigosCtrl', function($scope, $window)
     });
 
     // Podrán ser la valores finales como (10, 100, 1000) o números aleatorios dentro 
-    $scope.numAmigo = 1000;
-    let numLastre = 10;
+    $scope.numAmigo = 10;
+    let numLastre = 1;
     if((numLastre != 1 && $scope.numAmigo%10 != 0 && numLastre%10 != 0) ||
        (numLastre >= $scope.numAmigo))
         numLastre = 1;
