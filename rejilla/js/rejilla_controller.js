@@ -168,8 +168,8 @@ app.controller('rejillaCtrl', function($scope, $window)
     });
     
     // Configuración de variables
-    let maxValueList = [9, 9];
-    let maxTotal = 99;
+    let maxValueList = [99, 99];
+    let maxTotal = 130;
     $scope.numLines = 5;
     // ==============================
 
