@@ -2,7 +2,7 @@ var app = angular.module('rejillaApp', []);
 app.controller('rejillaCtrl', function($scope, $window) 
 {
     $scope.windowWidth = $window.innerWidth;
-    $scope.minLgWith = 800;
+    $scope.minLgWith = 700;
     
     let randomIntFromInterval = ((min, max) =>
     { 	// min and max included 
@@ -168,8 +168,8 @@ app.controller('rejillaCtrl', function($scope, $window)
     });
     
     // Configuración de variables
-    let maxValueList = [300, 400];
-    let maxTotal = 999;
+    let maxValueList = [9, 9];
+    let maxTotal = 99;
     $scope.numLines = 5;
     // ==============================
 
