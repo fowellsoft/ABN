@@ -158,4 +158,41 @@ app.controller('descomponerCtrl', function($scope, $window)
         }
     });
 
+
+    let autocompleta = (() => {
+
+        // Para cada una de las filas para las que aportar una descomposicion
+        for(let i=0; i < $scope.matrizDescomposiciones.length; i++)
+        {
+            let propuesta = [];
+
+            // Pendiente
+            let numPendiente = 0;
+            for(let j=0; j < $scope.matrizDescomposiciones[i].valores.length; j++)
+            {
+                let numAux = (numPendiente*10) + Number($scope.num2DescomposeList[j]);
+
+                if(j < $scope.matrizDescomposiciones[i].valores.length-1)
+                {
+                    // Calcula el número aleatorio
+                    let numElem = (randomIntFromInterval(0, numPendiente)*10) +
+                                  randomIntFromInterval(0, Number($scope.num2DescomposeList[j]));
+                    numPendiente = numAux - numElem;
+                    $scope.matrizDescomposiciones[i].valores[j].valor = numElem.toString();
+                    $scope.matrizDescomposiciones[i].valores[j].editable = false;
+                }
+                else
+                {
+                    $scope.matrizDescomposiciones[i].valores[$scope.matrizDescomposiciones[i].valores.length-1].valor = numAux.toString();
+                    $scope.matrizDescomposiciones[i].valores[$scope.matrizDescomposiciones[i].valores.length-1].editable = false;
+                }
+                       
+            }
+
+            let p2Remove = randomIntFromInterval(0, $scope.matrizDescomposiciones[i].valores.length-1);
+            $scope.matrizDescomposiciones[i].valores[p2Remove].valor = '';
+            $scope.matrizDescomposiciones[i].valores[p2Remove].editable = true;
+        }
+    });
+    autocompleta();
 });
