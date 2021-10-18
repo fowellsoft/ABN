@@ -70,8 +70,22 @@ app.controller('adosadosCtrl', function($scope, $window)
             }
 
             let isNumber = "0123456789".split('').indexOf(value) >= 0;
+            
+            if(value == "B")
+            {
+                if(cLast && cLast != "")
+                {
+                    let pRemove = 1
+                    if(cLast == " ")
+                    {
+                        pRemove = 3;
+                    }
 
-            if(cLast == "" && isNumber)
+                    let textAux = $scope.matrizSuma[$scope.i].substring(0, $scope.matrizSuma[$scope.i].length-pRemove);
+                    $scope.matrizSuma[$scope.i] = textAux;
+                }
+            }
+            else if(cLast == "" && isNumber)
             {
                 $scope.matrizSuma[$scope.i] += value;
             }
@@ -101,7 +115,7 @@ app.controller('adosadosCtrl', function($scope, $window)
             $scope.matrizAdosados[i].valores[j].editable) ||
            (j == "S" &&
             $scope.matrizSuma &&
-            $scope.matrizSuma[i]))
+            $scope.matrizSuma[i] != undefined))
         {
             $scope.i = i;
             $scope.j = j;
@@ -138,14 +152,13 @@ app.controller('adosadosCtrl', function($scope, $window)
     for(let i=0; i < numRows; i++)
     {
         $scope.matrizAdosados[i] = { valores: [] };
-        $scope.matrizSuma[i] = "[]";
+        $scope.matrizSuma[i] = "";
 
 
         for(let j=0; j < numAdosadoAsString.length; j++)
         {
             $scope.matrizAdosados[i].valores[j] = { valor: "",
-                                                    editable: true };
-            $scope.matrizSuma[j] = "";
+                                                    editable: true }
         }
     }
 
