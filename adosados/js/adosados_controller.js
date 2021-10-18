@@ -4,8 +4,45 @@ app.controller('adosadosCtrl', function($scope, $window)
     $scope.windowWidth = $window.innerWidth;
     $scope.minLgWith = 700;
     $scope.numMaxAdosado = 999;
+    $scope.sumaActivated = true;
     let numRows = 5;
 
+    let updateSuma = ((p) => {
+
+
+
+    });
+
+    $scope.printSuma = ((a) => {
+
+        let sSumaValue = "";
+        let sumaValue = 0;
+        if($scope.matrizAdosados[a].valores)
+        {
+            for(let i=0; i < $scope.matrizAdosados[a].valores.length; i++)
+            {
+                let v = 0;
+                if($scope.matrizAdosados[a].valores[i].valor != "")
+                    v = Number($scope.matrizAdosados[a].valores[i].valor)
+                
+                let aux = 1;
+                for(u = $scope.matrizAdosados[a].valores.length-1-i; u > 0; u--)
+                {  aux *= 10; }
+
+                v *= aux;
+
+                sumaValue += v;
+                sSumaValue += v;
+                if(i < $scope.matrizAdosados[a].valores.length-1)
+                    sSumaValue += " + "; 
+            }
+
+            sSumaValue += " = " + sumaValue; 
+        }
+
+        return sSumaValue;
+    });
+    
     $scope.i = 0;
     $scope.j = 0;
     $scope.insertValue = ((value) =>
@@ -25,11 +62,14 @@ app.controller('adosadosCtrl', function($scope, $window)
         // Resetea el error al cambiar algún dato
         if($scope.matrizAdosados[$scope.i].withError)
             $scope.matrizAdosados[$scope.i].withError = false;
+
+        updateSuma(i);
     });
 
-    $scope.selectField = ((i, j) =>
+    $scope.selectField = ((i, j, type) =>
     {
-        if($scope.matrizAdosados && 
+        if(!type &&
+           $scope.matrizAdosados && 
            $scope.matrizAdosados[i] &&
            $scope.matrizAdosados[i].valores &&
            $scope.matrizAdosados[i].valores[j] &&
@@ -37,6 +77,11 @@ app.controller('adosadosCtrl', function($scope, $window)
         {
             $scope.i = i;
             $scope.j = j;
+        }
+        else
+        {
+            // Si hay tipo es la suma
+
         }
     });
 
@@ -60,6 +105,7 @@ app.controller('adosadosCtrl', function($scope, $window)
     });
 
     $scope.matrizAdosados = [];
+    $scope.matrizSuma = [];
     
     // Para determinar el número de columnas calcula el número elementos del número
     // Lo convierte a string y mira su tamaño
@@ -69,11 +115,13 @@ app.controller('adosadosCtrl', function($scope, $window)
     for(let i=0; i < numRows; i++)
     {
         $scope.matrizAdosados[i] = { valores: [] };
+        $scope.matrizSuma[i] = [];
+
 
         for(let j=0; j < numAdosadoAsString.length; j++)
         {
             $scope.matrizAdosados[i].valores[j] = { valor: "",
-                                                            editable: true };
+                                                    editable: true };
         }
     }
 

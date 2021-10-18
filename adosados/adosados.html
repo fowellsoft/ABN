@@ -40,6 +40,11 @@
                     </div>
                     <div class="row text-center">
                         <div class="col-4 border fs-3 botonera" ng-click="insertValue('0')">0</div>
+                        <div class="col-4 border fs-3 botonera" ng-click="insertValue('+')">+</div>
+                        <div class="col-4 border fs-3 botonera" ng-click="insertValue('-')">-</div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-4 border fs-3 botonera" ng-click="insertValue('=')">=</div>
                         <div class="col-8 border fs-3 botonera" ng-click="insertValue('B')">Borrar</div>
                     </div>
                     <div class="row text-center pt-2">
@@ -54,9 +59,9 @@
             </div>
             
             <div class="col-8">
-                <div class="container w-75">
+                <div class="container">
                     <div class="row">
-                        <div class="col border border-2 border-success d-flex justify-content-center align-items-center rounded-top">
+                        <div class="col border border-2 border-bottom-0 border-success d-flex justify-content-center align-items-center rounded-top">
                             <div class="rounded-circle  bg-success bg-opacity-25 text-white m-3 fs-2 d-flex justify-content-center align-items-center" style="height: 75px; width: 75px" >
                                 <div ng-repeat="n in [].constructor(num2AdosadoList.length) track by $index"
                                      ng-class="{'centenas': $index == 0,
@@ -65,15 +70,19 @@
                                 
                             </div>
                         </div>
+                        <div class="col-6" ng-if="sumaActivated"></div>
                     </div>
                     <div class="row text-center">
-                        <div class="col border border-top-0 border-2 border-success fs-4" 
+                        <div class="col border border-2 border-success fs-4" 
                              ng-class="{'border border-start-0': $index != 0,
                                         'centenas': cabecera == 'C',
                                         'decenas': cabecera == 'D',
                                         'unidades': cabecera == 'U' }"
                              ng-repeat="cabecera in cabeceraAdosados" >
                             {{cabecera}}
+                        </div>
+                        <div class="col-6 border border-2 border-success fs-4 border-start-0" ng-if="sumaActivated">
+                            SUMA
                         </div>
                     </div>
                     <div class="row text-center" ng-repeat="line in [].constructor(matrizAdosados.length) track by $index">
@@ -86,6 +95,10 @@
                              ng-click="selectField($parent.$index, $index)" tabindex="1">
                                 {{matrizAdosados[$parent.$index].valores[$index].valor}}
                         </div>
+                        <div class="col-6 border border-top-0 border-2 border-start-0 border-success fs-6 valueAux text-start ps-4 d-flex align-items-center" 
+                         ng-if="sumaActivated" 
+                         tabindex="1">
+                         {{printSuma($index)}}</div>
                     </div>
                 </div>
             </div>
@@ -97,24 +110,28 @@
             <div class="container">
                 
                 <div class="row">
-                    <div class="col border border-2 border-success d-flex justify-content-center align-items-center rounded-top">
+                    <div class="col border border-2 border-success border-bottom-0 d-flex justify-content-center align-items-center rounded-top">
                         <div class="rounded-circle  bg-success bg-opacity-25 text-white m-3 fs-2 d-flex justify-content-center align-items-center" style="height: 75px; width: 75px" >
                             <div ng-repeat="n in [].constructor(num2AdosadosList.length) track by $index"
                                     ng-class="{'centenas': $index == 0,
                                             'decenas': $index == 1,
-                                            'unidades': $index == 2 }">{{num2AdosadosList[$index]}}</div>
+                                            'unidades': $index == 2 }">{{num2AdosadoList[$index]}}</div>
                             
                         </div>
                     </div>
+                    <div class="col-4" ng-if="sumaActivated"></div>
                 </div>
                 <div class="row text-center">
-                    <div class="col border border-top-0 border-2 border-success fs-4" 
+                    <div class="col border border-2 border-success fs-4" 
                             ng-class="{'border border-start-0': $index != 0,
                                     'centenas': cabecera == 'C',
                                     'decenas': cabecera == 'D',
                                     'unidades': cabecera == 'U' }"
                             ng-repeat="cabecera in cabeceraAdosados" >
                         {{cabecera}}
+                    </div>
+                    <div class="col-4 border border-2 border-success fs-4 border-start-0" ng-if="sumaActivated">
+                        SUMA
                     </div>
                 </div>
                 <div class="row text-center" ng-repeat="line in [].constructor(matrizAdosados.length) track by $index">
@@ -127,6 +144,10 @@
                             ng-click="selectField($parent.$index, $index)" tabindex="1">
                             {{matrizAdosados[$parent.$index].valores[$index].valor}}
                     </div>
+                    <div class="col-4 border border-top-0 border-2 border-start-0 border-success fs-6 valueAux text-start ps-4 d-flex align-items-center" 
+                         ng-if="sumaActivated" 
+                         tabindex="1">
+                         {{printSuma($index)}}</div>
                 </div>
 
                 <div class="row text-center mt-3" >
@@ -146,6 +167,11 @@
                 </div>
                 <div class="row text-center">
                     <div class="col-4 border fs-3 botonera" ng-click="insertValue('0')">0</div>
+                    <div class="col-4 border fs-3 botonera" ng-click="insertValue('+')">+</div>
+                    <div class="col-4 border fs-3 botonera" ng-click="insertValue('-')">-</div>
+                </div>
+                <div class="row text-center">
+                    <div class="col-4 border fs-3 botonera" ng-click="insertValue('=')">=</div>
                     <div class="col-8 border fs-3 botonera" ng-click="insertValue('B')">Borrar</div>
                 </div>
                 <div class="row text-center pt-2">
