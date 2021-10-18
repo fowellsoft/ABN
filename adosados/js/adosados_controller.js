@@ -7,12 +7,6 @@ app.controller('adosadosCtrl', function($scope, $window)
     $scope.sumaActivated = true;
     let numRows = 5;
 
-    let updateSuma = ((p) => {
-
-
-
-    });
-
     $scope.printSuma = ((a) => {
 
         let sSumaValue = "";
@@ -47,41 +41,70 @@ app.controller('adosadosCtrl', function($scope, $window)
     $scope.j = 0;
     $scope.insertValue = ((value) =>
     {
-        let textAux = $scope.matrizAdosados[$scope.i].valores[$scope.j].valor;
-        if(value == "B")
+        if($scope.j != "S")
         {
-            if(textAux && textAux.length > 0)
+            let textAux = $scope.matrizAdosados[$scope.i].valores[$scope.j].valor;
+            if(value == "B")
             {
-                textAux = textAux.substring(0, textAux.length-1);
-                $scope.matrizAdosados[$scope.i].valores[$scope.j].valor = textAux;
+                if(textAux && textAux.length > 0)
+                {
+                    textAux = textAux.substring(0, textAux.length-1);
+                    $scope.matrizAdosados[$scope.i].valores[$scope.j].valor = textAux;
+                }
             }
+            else if(["0123456789"].indexOf(value) >= 0)
+                $scope.matrizAdosados[$scope.i].valores[$scope.j].valor += value;
+            
+            // Resetea el error al cambiar algún dato
+            if($scope.matrizAdosados[$scope.i].withError)
+                $scope.matrizAdosados[$scope.i].withError = false;
         }
         else
-            $scope.matrizAdosados[$scope.i].valores[$scope.j].valor += value;
-        
-        // Resetea el error al cambiar algún dato
-        if($scope.matrizAdosados[$scope.i].withError)
-            $scope.matrizAdosados[$scope.i].withError = false;
+        {
+            // Si es la suma compara el valor anterior y el nuevo para ver si son compatibles
+            let cLast = "";
+            if($scope.matrizSuma[$scope.i] &&
+               $scope.matrizSuma[$scope.i].length > 0)
+            {
+                cLast = $scope.matrizSuma[$scope.i].substring($scope.matrizSuma[$scope.i].length-1);
+            }
 
-        updateSuma(i);
+            let isNumber = "0123456789".split('').indexOf(value) >= 0;
+
+            if(cLast == "" && isNumber)
+            {
+                $scope.matrizSuma[$scope.i] += value;
+            }
+            else
+            {
+                let cIsNumber = "0123456789".split('').indexOf(cLast) >= 0;
+                if((cIsNumber && isNumber) ||
+                   (!cIsNumber && isNumber) ||
+                   (cIsNumber && !isNumber))
+                {
+                    if(!isNumber)
+                        value = " " + value + " "
+                    $scope.matrizSuma[$scope.i] += value;
+                }
+
+            }
+        }
     });
 
-    $scope.selectField = ((i, j, type) =>
+    $scope.selectField = ((i, j) =>
     {
-        if(!type &&
-           $scope.matrizAdosados && 
-           $scope.matrizAdosados[i] &&
-           $scope.matrizAdosados[i].valores &&
-           $scope.matrizAdosados[i].valores[j] &&
-           $scope.matrizAdosados[i].valores[j].editable)
+        if((j != "S" &&
+            $scope.matrizAdosados && 
+            $scope.matrizAdosados[i] &&
+            $scope.matrizAdosados[i].valores &&
+            $scope.matrizAdosados[i].valores[j] &&
+            $scope.matrizAdosados[i].valores[j].editable) ||
+           (j == "S" &&
+            $scope.matrizSuma &&
+            $scope.matrizSuma[i]))
         {
             $scope.i = i;
             $scope.j = j;
-        }
-        else
-        {
-            // Si hay tipo es la suma
-
         }
     });
 
@@ -115,13 +138,14 @@ app.controller('adosadosCtrl', function($scope, $window)
     for(let i=0; i < numRows; i++)
     {
         $scope.matrizAdosados[i] = { valores: [] };
-        $scope.matrizSuma[i] = [];
+        $scope.matrizSuma[i] = "[]";
 
 
         for(let j=0; j < numAdosadoAsString.length; j++)
         {
             $scope.matrizAdosados[i].valores[j] = { valor: "",
                                                     editable: true };
+            $scope.matrizSuma[j] = "";
         }
     }
 

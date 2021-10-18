@@ -96,9 +96,14 @@
                                 {{matrizAdosados[$parent.$index].valores[$index].valor}}
                         </div>
                         <div class="col-6 border border-top-0 border-2 border-start-0 border-success fs-6 valueAux text-start ps-4 d-flex align-items-center" 
-                         ng-if="sumaActivated" 
+                         ng-if="sumaActivated"
+                         ng-class="{'border border-start-0': $index != 0,  
+                                    'valueAuxSelect': isSelected($parent.$index, 'S'), 
+                                    'valueAuxSelectError': isSelectedWithError($parent.$index, 'S'), 
+                                    'valueAuxError': hasError($parent.$index, 'S') }"
+                         ng-click="selectField($parent.$index, 'S')"
                          tabindex="1">
-                         {{printSuma($index)}}</div>
+                         {{matrizSuma[$index]}}</div>
                     </div>
                 </div>
             </div>
@@ -147,7 +152,7 @@
                     <div class="col-4 border border-top-0 border-2 border-start-0 border-success fs-6 valueAux text-start ps-4 d-flex align-items-center" 
                          ng-if="sumaActivated" 
                          tabindex="1">
-                         {{printSuma($index)}}</div>
+                         {{$scope.matrizSuma[$index]}}</div>
                 </div>
 
                 <div class="row text-center mt-3" >
