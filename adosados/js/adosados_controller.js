@@ -52,7 +52,7 @@ app.controller('adosadosCtrl', function($scope, $window)
                     $scope.matrizAdosados[$scope.i].valores[$scope.j].valor = textAux;
                 }
             }
-            else if(["0123456789"].indexOf(value) >= 0)
+            else if("0123456789".split('').indexOf(value) >= 0)
                 $scope.matrizAdosados[$scope.i].valores[$scope.j].valor += value;
             
             // Resetea el error al cambiar algún dato
@@ -92,9 +92,9 @@ app.controller('adosadosCtrl', function($scope, $window)
             else
             {
                 let cIsNumber = "0123456789".split('').indexOf(cLast) >= 0;
-                if((cIsNumber && isNumber) ||
-                   (!cIsNumber && isNumber) ||
-                   (cIsNumber && !isNumber))
+                
+                if(isNumber ||
+                   (!isNumber && cIsNumber && $scope.matrizSuma[$scope.i].indexOf("=") < 0))
                 {
                     if(!isNumber)
                         value = " " + value + " "
@@ -235,6 +235,47 @@ app.controller('adosadosCtrl', function($scope, $window)
                 if(sumandosList[j].editable)
                     sumandosList[j].withError = showError;
             }
+        }
+
+        for(let i=0; i < $scope.matrizSuma.length; i++)
+        {
+            let algoritmo = $scope.matrizSuma[i];
+            let hasError = false;
+
+            if(algoritmo != "")
+            {
+                if(algoritmo.indexOf(" = ") >= 0)
+                {
+                    let partes = algoritmo.split(" = ");
+
+                    if(partes[1].trim() != "" &&
+                       Number(partes[1].trim()) == $scope.num2Adosado)
+                    {
+                        if(partes[0].trim() != "" &&
+                           partes[0].trim().indexOf(" + ")>= 0)
+                        {
+                            let valoresList = partes[0].trim().split(" + ");
+                            let total = 0;
+
+                            for(let j=0; j < valoresList.length; j++)
+                            {
+                                total += Number(valoresList[j]);
+                            }
+
+                            if(total != $scope.num2Adosado)
+                                hasError = true;
+                        }
+                        else
+                            hasError = true;
+                    }
+                    else
+                        hasError = true;
+                }
+                else 
+                    hasError = true;
+            }
+            else
+                hasError = true;
         }
 
         if(!$scope.resultadoOperaciones.someoneWithError)
