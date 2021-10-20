@@ -3,6 +3,10 @@ app.controller('amigosCtrl', function($scope, $window)
 {
     $scope.windowWidth = $window.innerWidth;
     $scope.minLgWith = 700;
+    
+    // Podrán ser la valores finales como (10, 100, 1000) o números aleatorios dentro 
+    $scope.numAmigo = 1000;
+    let numLastre = 10;
 
     $scope.i = 0;
     $scope.j = 0;
@@ -116,9 +120,6 @@ app.controller('amigosCtrl', function($scope, $window)
         return Math.floor(Math.random() * (max - min + 1) + min)
     });
 
-    // Podrán ser la valores finales como (10, 100, 1000) o números aleatorios dentro 
-    $scope.numAmigo = 100;
-    let numLastre = 1;
     if((numLastre != 1 && $scope.numAmigo%10 != 0 && numLastre%10 != 0) ||
        (numLastre >= $scope.numAmigo))
         numLastre = 1;
