@@ -6,7 +6,7 @@ app.controller('amigosCtrl', function($scope, $window)
     
     // Podrán ser la valores finales como (10, 100, 1000) o números aleatorios dentro 
     $scope.numAmigo = 1000;
-    let numLastre = 10;
+    let numLastre = 1;
 
     $scope.i = 0;
     $scope.j = 0;
