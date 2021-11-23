@@ -90,7 +90,7 @@
                 <div class="row text-center" ng-repeat="line in [].constructor(numLines) track by $index">
 
                     <div class="col-3 border border-primary fs-4 d-flex justify-content-center align-items-center operandoAux" ng-class="{'border-top-0':  $index != 0, 'operandoAuxSelect': isSelected($index, 0) }" ng-click="selectField($index, 0)" tabindex="1">
-                        {{result.line[$index][0]}
+                        {{result.line[$index][0]}}
                     </div>
                     <div class="col border border-start-0 border-start-0 border-primary fs-4 d-flex justify-content-center align-items-center operandoAux" ng-class="{'border-top-0':  $parent.$index != 0, 'operandoAuxSelect': isSelected($parent.$index, ($index+1)) }" ng-repeat="o in [].constructor(result.line[$index].length-1) track by $index" ng-click="selectField($parent.$index, ($index+1))" tabindex="1">
                         {{result.line[$parent.$index][$index+1]}}
