@@ -140,7 +140,8 @@ app.controller('dobleMitadCtrl', function($scope, $window)
 
     $scope.isSelected = ((i) =>
     {
-        return ($scope.i == i);
+        return (($scope.i == i) &&
+                !$scope.hasError(i));
     });
 
     $scope.isSelectedWithError = ((i) =>
