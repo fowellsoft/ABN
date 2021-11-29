@@ -360,5 +360,4 @@ app.controller('adosadosCtrl', function($scope, $window)
             $scope.matrizAdosados[i].valores[p2Remove].editable = true;
         }
     });
-    autocompleta();
 });
