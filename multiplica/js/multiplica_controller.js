@@ -39,7 +39,8 @@ app.controller('multiplicaCtrl', function($scope, $window)
         let multiplicadorValue = "";
         for(let i=0; i<multiplicadoresElements; i++)
         {
-            multiplicadorValue += multiplicadoresValidList[randomIntFromInterval(0, multiplicadoresValidList.length-1)];
+            multiplicadorValue += multiplicadoresValidList[randomIntFromInterval((i == 0)? 1 : 0, 
+                                                                                 multiplicadoresValidList.length-1)];
         }
         returnObj.values.push(Number(multiplicadorValue));
 
@@ -193,7 +194,7 @@ app.controller('multiplicaCtrl', function($scope, $window)
     });
     
     // Configuración de variables
-    let multiplicadoresValidList = [2, 3, 5];
+    let multiplicadoresValidList = [0, 2, 3, 5];
     let multicandoNumElements = 3;
     let multiplicadoresNumElements = 2;
     // ==============================
