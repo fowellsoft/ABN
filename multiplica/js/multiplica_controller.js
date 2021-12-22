@@ -206,8 +206,10 @@ app.controller('multiplicaCtrl', function($scope, $window)
     $scope.result = { line: []};
     
     for(let i= 0; i < $scope.numLines; i++)
-    {   $scope.result.line[i] = []; 
-        for(let j=0; j < $scope.operationValues.values[1].toString().length+2; j++)
+    {   $scope.result.line[i] = [];
+        let numColums = $scope.operationValues.values[1].toString().length+2;
+        if(multiplicadoresNumElements > 1){ numColums++; }
+        for(let j=0; j < numColums; j++)
             $scope.result.line[i].push("");
     }
     
