@@ -196,7 +196,7 @@ app.controller('multiplicaCtrl', function($scope, $window)
     // Configuración de variables
     let multiplicadoresValidList = [0, 2, 3, 5];
     let multicandoNumElements = 3;
-    let multiplicadoresNumElements = 2;
+    let multiplicadoresNumElements = 1;
     // ==============================
 
     $scope.operationValues = getOperationValue(multicandoNumElements, multiplicadoresValidList, multiplicadoresNumElements);
