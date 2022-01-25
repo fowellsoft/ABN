@@ -31,9 +31,26 @@ app.controller('multiplicaCtrl', function($scope, $window)
 
         // Genera 2 números aleatorios
         returnObj.values.push(randomIntFromInterval(1, maxValue));
+        returnObj.values.push(Number(randomIntFromInterval(1, maxValue)));
+        let primero = true;
+
         do
         {
-            returnObj.values.push(Number(randomIntFromInterval(1, maxValue)));
+            if(!primero)
+            {
+                returnObj.values[1] = Number(randomIntFromInterval(1, maxValue));
+                primero = false;
+            }
+
+            if(((returnObj.values[0] - returnObj.values[1]) % 2) != 0)
+            {
+                if(returnObj.values[0] < maxValue)
+                    returnObj.values[0]++;
+                else if(returnObj.values[1] < maxValue)
+                    returnObj.values[1]++;
+                
+                console.log("Recalcula...");
+            }
         }
         while((returnObj.values[0] == returnObj.values[1]) ||
               ((((returnObj.values[0] - returnObj.values[1]) % 2) != 0)));
@@ -81,10 +98,23 @@ app.controller('multiplicaCtrl', function($scope, $window)
                 let rTotal = 0;
                 lines.forEach(e => {    if(e[0] != ""){ rTotal += Number(e[0]); }});
                 
+                let lr = 0;
+                if(lines.length > 1)
+                {
+                    // Comprueba que el último valor sea el resultado de la suma
+                    let lrs = result.line.filter(l => l[0] != "");
+                    
+                    if(lrs && lrs.length > 0)
+                    {
+                        lr = lrs[lrs.length-1][0];
+                    }
+                }
+
                 if(
                     line[line.length-1] == $scope.operationValues.re &&
                     line[line.length-2] == $scope.operationValues.re &&
-                    rTotal == $scope.operationValues.r
+                    rTotal == $scope.operationValues.r &&
+                    ((lr == 0) || (lr == $scope.operationValues.r))
                   )
                 {
                     isOK = true;
@@ -138,7 +168,7 @@ app.controller('multiplicaCtrl', function($scope, $window)
     });
     
     // Configuración de variables
-    let level = 1;
+    let level = 2;
     // ==============================
 
     $scope.operationValues = getOperationValue(level);
