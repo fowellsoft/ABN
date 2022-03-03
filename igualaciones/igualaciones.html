@@ -17,12 +17,11 @@
 
   </head>
   <body>
-    <div class="container p-5" ng-app="multiplicaApp" ng-controller="multiplicaCtrl">
+    <div class="container p-5" ng-app="igualacionesApp" ng-controller="igualacionesCtrl">
         
         <div class="row align-items-center" ng-if="windowWidth > minLgWith">
             <div class="col-4">
                 <div class="container">
-
                     <div class="row text-center" >
                         <div class="col-4 border fs-3 botonera" ng-click="insertValue('1')">1</div>
                         <div class="col-4 border fs-3 botonera" ng-click="insertValue('2')">2</div>
@@ -40,7 +39,11 @@
                     </div>
                     <div class="row text-center">
                         <div class="col-4 border fs-3 botonera" ng-click="insertValue('0')">0</div>
-                        <div class="col-8 border fs-3 botonera" ng-click="insertValue('B')">Borrar</div>
+                        <div class="col-4 border fs-3 botonera" ng-click="insertValue('+')">+</div>
+                        <div class="col-4 border fs-3 botonera" ng-click="insertValue('-')">-</div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-12 border fs-3 botonera" ng-click="insertValue('B')">Borrar</div>
                     </div>
                 </div>
             </div>
@@ -119,7 +122,11 @@
                 </div>
                 <div class="row text-center">
                     <div class="col-4 border fs-3 botonera" ng-click="insertValue('0')">0</div>
-                    <div class="col-8 border fs-3 botonera" ng-click="insertValue('B')">Borrar</div>
+                    <div class="col-4 border fs-3 botonera" ng-click="insertValue('+')">+</div>
+                    <div class="col-4 border fs-3 botonera" ng-click="insertValue('-')">-</div>
+                </div>
+                <div class="row text-center">
+                    <div class="col-12 border fs-3 botonera" ng-click="insertValue('B')">Borrar</div>
                 </div>
             </div>
         </div>

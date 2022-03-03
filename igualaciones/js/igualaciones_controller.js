@@ -1,5 +1,5 @@
-var app = angular.module('multiplicaApp', []);
-app.controller('multiplicaCtrl', function($scope, $window) 
+var app = angular.module('igualacionesApp', []);
+app.controller('igualacionesCtrl', function($scope, $window) 
 {
     $scope.windowWidth = $window.innerWidth;
     $scope.minLgWith = 800;
@@ -150,6 +150,33 @@ app.controller('multiplicaCtrl', function($scope, $window)
             {
                 textAux = textAux.substring(0, textAux.length-1);
                 $scope.result.line[$scope.i][$scope.j] = textAux;
+            }
+        }
+        else if((value == "-" || value == "+"))
+        {
+            if($scope.j == 0)
+            {
+                if(value == "-")
+                {
+                    if(textAux && textAux.length > 0)
+                    {
+                        if(!textAux.startsWith("-"))
+                        {
+                            $scope.result.line[$scope.i][$scope.j] = value + $scope.result.line[$scope.i][$scope.j];
+                        }
+                    }
+                    else
+                    {   $scope.result.line[$scope.i][$scope.j] += value;    }
+                }
+                else
+                {
+                    if($scope.result.line[$scope.i][$scope.j] && 
+                       $scope.result.line[$scope.i][$scope.j].length > 0 &&
+                    $scope.result.line[$scope.i][$scope.j].startsWith("-"))
+                    {
+                        $scope.result.line[$scope.i][$scope.j] = $scope.result.line[$scope.i][$scope.j].substring(1);
+                    }
+                }
             }
         }
         else
