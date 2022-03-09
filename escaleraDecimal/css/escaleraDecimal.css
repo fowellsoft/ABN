@@ -1,0 +1,28 @@
+
+div.valueAux {
+  height: 45px;
+  color: black;
+}
+
+div.valueAuxError {
+  background-color: #dd0000 !important;
+  color: white;
+}
+
+div.valueAuxSelectError {
+  background-color: #a50a0a !important;
+  color: white;
+}
+
+div.valueAuxSelect {
+  background-color: #cfcfcf !important;
+  color: black;
+}
+
+div.botonera {
+  background-color: #cfcfcf;
+}
+div.botonera:active {
+  background-color: blue;
+  color: white;
+}
