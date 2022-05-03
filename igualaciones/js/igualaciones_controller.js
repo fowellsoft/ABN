@@ -195,7 +195,7 @@ app.controller('igualacionesCtrl', function($scope, $window)
     });
     
     // Configuración de variables
-    let level = 2;
+    let level = 3;
     // ==============================
 
     $scope.operationValues = getOperationValue(level);
