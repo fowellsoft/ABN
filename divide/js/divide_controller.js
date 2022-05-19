@@ -55,8 +55,9 @@ app.controller('divideCtrl', function($scope, $window)
 
         if(exacto && returnObj.restoResult != 0)
         {
-            returnObj.cocienteResult += returnObj.restoResult;
-            returnObj.restoResult = Number(0);
+            returnObj.values[0] += (Number(returnObj.values[1]) - Number(returnObj.restoResult));
+            returnObj.cocienteResult = Math.floor(Number(returnObj.values[0]) / Number(returnObj.values[1]));
+            returnObj.restoResult = Number(returnObj.values[0]) % Number(returnObj.values[1]);
         }
 
         return returnObj;
