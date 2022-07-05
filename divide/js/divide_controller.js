@@ -163,7 +163,7 @@ app.controller('divideCtrl', function($scope, $window)
     let numElementsDivisor = 1; // Número de elemento divisor
     // ==============================
 
-    $scope.operationValues = getOperationValue(dividendoNumElements, divisoresValidList, numElementsDivisor, true);
+    $scope.operationValues = getOperationValue(dividendoNumElements, divisoresValidList, numElementsDivisor, false);
 
     $scope.numLines = 5;
 
